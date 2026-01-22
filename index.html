@@ -2,232 +2,270 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Proud of You, Suyash 🤍</title>
+<title>For Suyash 🤍</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(160deg, #0f172a, #1e293b, #312e81);
+  background: linear-gradient(120deg, #0f172a, #1e293b);
   color: #f8fafc;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  padding: 60px 20px;
   position: relative;
-  z-index: 2;
 }
 
-.card {
-  max-width: 760px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  padding: 50px;
-  border-radius: 24px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-  animation: fadeIn 2s ease;
+/* Center content */
+.container {
+  max-width: 600px;
+  margin: 10vh auto;
+  text-align: center;
+  position: relative;
+  z-index: 5;
 }
 
 h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.6rem;
-  text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-  text-align: center;
-  color: #fbcfe8;
-  margin-bottom: 36px;
-}
-
-p {
+.subtitle {
   font-size: 1.05rem;
-  line-height: 1.8;
+  opacity: 0.85;
 }
 
 /* Timeline */
 .timeline {
-  margin: 45px 0;
-  border-left: 2px solid #fbcfe8;
-  padding-left: 24px;
+  margin-top: 40px;
+  text-align: left;
 }
 
 .event {
-  margin-bottom: 28px;
-  position: relative;
-}
-
-.event::before {
-  content: '';
-  position: absolute;
-  left: -11px;
-  top: 6px;
-  width: 14px;
-  height: 14px;
-  background: #fbcfe8;
-  border-radius: 50%;
+  margin-bottom: 25px;
 }
 
 .event h3 {
   margin: 0;
-  font-family: 'Playfair Display', serif;
-  color: #fbcfe8;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
-/* Password section */
-.secret {
-  text-align: center;
-  margin-top: 40px;
+.event p {
+  margin: 5px 0 0;
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+/* Password */
+#passwordBox, .passwordBox {
+  margin-top: 30px;
 }
 
 input {
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: none;
-  width: 70%;
-  max-width: 260px;
-}
-
-button {
-  margin-top: 14px;
-  padding: 10px 24px;
-  border-radius: 8px;
-  border: none;
-  background: #fbcfe8;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.error {
-  color: #fecaca;
+  outline: none;
   margin-top: 10px;
 }
 
-.hidden-message {
+button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+/* Secret messages */
+.secretMessage {
   display: none;
   margin-top: 30px;
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  line-height: 1.9;
-  animation: fadeIn 1.5s ease;
-  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  background: rgba(255,255,255,0.05);
+  padding: 12px 16px;
+  border-radius: 6px;
 }
 
-.signature {
-  margin-top: 20px;
-  font-size: 1rem;
-  color: #e5e7eb;
-}
-
-/* Floating images */
-.floating-img {
+/* Floating hearts & beers */
+.heart, .beer {
   position: fixed;
-  width: 140px;
-  opacity: 0.35;
-  border-radius: 16px;
-  filter: blur(0.5px);
+  bottom: -20px;
+  font-size: 16px;
   animation: floatUp linear infinite;
-  z-index: 1;
+  opacity: 0.5;
+}
+
+.beer {
+  font-size: 20px;
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(120vh);
-    opacity: 0;
-  }
-  20% { opacity: 0.35; }
-  to {
-    transform: translateY(-140vh);
-    opacity: 0;
-  }
+  from { transform: translateY(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.6; }
+  to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
-@keyframes fadeIn {
-  from { opacity:0; transform: translateY(25px); }
-  to { opacity:1; transform: translateY(0); }
+/* Floating side messages */
+.sideMessage {
+  position: fixed;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  border-radius: 6px;
+  opacity: 0.8;
+  white-space: nowrap;
+  animation: floatSide linear infinite;
+}
+
+@keyframes floatSide {
+  from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.9; }
+  to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Soft piano -->
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_48c8f7c2c3.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop>
+  <source src="piano.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-  <div class="card">
-    <h1>I’ve seen your quiet days.</h1>
-    <h2>Today, I have happy tears.</h2>
+  <h1>For Suyash</h1>
+  <div class="subtitle">
+    Some wins deserve applause.  
+    Some deserve a pause — and a reminder.
+  </div>
 
-    <p>
-      I’ve seen you when progress was slow,  
-      when you carried more than you said out loud.  
-      And that’s why today matters so much more.
-    </p>
-
-    <div class="timeline">
-      <div class="event">
-        <h3>The quiet grind</h3>
-        <p>Showing up even when no one noticed.</p>
-      </div>
-      <div class="event">
-        <h3>The self-doubt</h3>
-        <p>Still choosing effort over comfort.</p>
-      </div>
-      <div class="event">
-        <h3>Today</h3>
-        <p>A promotion — and so much pride.</p>
-      </div>
+  <div class="timeline">
+    <div class="event">
+      <h3>The quiet days</h3>
+      <p>I saw the effort no one else noticed.</p>
     </div>
-
-    <div class="secret">
-      <p>🔐 A message meant only for you</p>
-      <input type="password" id="password" placeholder="Password">
-      <br>
-      <button onclick="checkPassword()">Unlock</button>
-      <div class="error" id="error"></div>
+    <div class="event">
+      <h3>The becoming</h3>
+      <p>Growth that didn’t need announcements.</p>
     </div>
-
-    <div class="hidden-message" id="hiddenMessage">
-      I don’t need anything grand.  
-      <br><br>
-      Just your hand in mine,  
-      one look into your eyes —  
-      and that familiar rush of butterflies.  
-      <br><br>
-      Funny how even all this time with you  
-      still feels less.
-      <div class="signature">— Vidhi 🤍</div>
+    <div class="event">
+      <h3>Today</h3>
+      <p>This is what consistency looks like.</p>
     </div>
+  </div>
 
+  <!-- Password boxes for multiple messages -->
+  <div class="passwordBox">
+    <p>Enter password for message 1:</p>
+    <input type="password" class="pass" data-msg="1">
+    <button onclick="unlockMessage(1)">Unlock</button>
+  </div>
+
+  <div class="passwordBox">
+    <p>Enter password for message 2:</p>
+    <input type="password" class="pass" data-msg="2">
+    <button onclick="unlockMessage(2)">Unlock</button>
+  </div>
+
+  <div class="passwordBox">
+    <p>Enter password for message 3:</p>
+    <input type="password" class="pass" data-msg="3">
+    <button onclick="unlockMessage(3)">Unlock</button>
+  </div>
+
+  <div class="passwordBox">
+    <p>Enter password for message 4:</p>
+    <input type="password" class="pass" data-msg="4">
+    <button onclick="unlockMessage(4)">Unlock</button>
+  </div>
+
+  <!-- Secret messages -->
+  <div id="secret1" class="secretMessage">
+    Sweet and heartfelt: <br>
+    Just your hand in mine… one look, and butterflies everywhere.
+  </div>
+  <div id="secret2" class="secretMessage">
+    Funny: <br>
+    I stay with you everyday still feels less to me.
+  </div>
+  <div id="secret3" class="secretMessage">
+    Quirky: <br>
+    You + me = chaos and giggles. Forever equation.
+  </div>
+  <div id="secret4" class="secretMessage">
+    Sweet: <br>
+    Every quiet moment with you feels loud in my heart.
   </div>
 </div>
 
 <script>
-/* Password */
-function checkPassword() {
-  const correctPassword = "221200";
-  const entered = document.getElementById("password").value;
+/* Background music */
+function playMusic() {
+  document.getElementById("bgMusic").play();
+}
 
-  if (entered === correctPassword) {
-    document.getElementById("hiddenMessage").style.display = "block";
-    document.getElementById("error").innerText = "";
+/* Password unlock for multiple messages */
+const passwords = {
+  1: "221200",
+  2: "laugh",
+  3: "chaos",
+  4: "sweet"
+};
+
+function unlockMessage(id) {
+  const input = document.querySelector(`input[data-msg="${id}"]`).value;
+  if(input === passwords[id]) {
+    document.getElementById("secret" + id).style.display = "block";
+    playMusic();
   } else {
-    document.getElementById("error").innerText = "Try again 🤍";
+    alert("Try again 🤍");
   }
 }
+
+/* Floating hearts & beers */
+setInterval(() => {
+  const emoji = document.createElement("div");
+  const isBeer = Math.random() > 0.5;
+  emoji.className = isBeer ? "beer" : "heart";
+  emoji.innerHTML = isBeer ? "🍺" : "🤍";
+  emoji.style.left = Math.random() * 100 + "vw";
+  emoji.style.fontSize = 14 + Math.random() * 16 + "px";
+  emoji.style.animationDuration = 6 + Math.random() * 6 + "s";
+  document.body.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 12000);
+}, 600);
+
+/* Floating side messages */
+const sideMessages = [
+  "You make quiet days magical",
+  "Every effort counts",
+  "Cheers to consistency",
+  "Little wins, big smiles",
+  "You are appreciated",
+  "Smiles incoming 😉",
+  "Happiness spotted!"
+];
+
+function startFloatingMessages() {
+  setInterval(() => {
+    const msg = document.createElement("div");
+    msg.className = "sideMessage";
+    msg.innerHTML = sideMessages[Math.floor(Math.random() * sideMessages.length)];
+    msg.style.left = Math.random() > 0.5 ? "5vw" : "75vw";
+    msg.style.fontSize = 14 + Math.random() * 6 + "px";
+    msg.style.animationDuration = 12 + Math.random() * 10 + "s";
+    document.body.appendChild(msg);
+    setTimeout(() => msg.remove(), 25000);
+  }, 2500);
+}
+
+// Start floating messages on page load
+startFloatingMessages();
 </script>
 
 </body>
