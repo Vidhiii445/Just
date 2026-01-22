@@ -16,7 +16,7 @@ body {
   position: relative;
 }
 
-/* Center content */
+/* Main container */
 .container {
   max-width: 600px;
   margin: 15vh auto;
@@ -25,64 +25,39 @@ body {
   z-index: 5;
 }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  font-size: 1.05rem;
-  opacity: 0.85;
-  line-height: 1.6;
-}
-
-/* Password overlay */
+/* Password screen */
 #passwordScreen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: linear-gradient(120deg, #0f172a, #1e293b);
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 100;
-  color: #f8fafc;
 }
 
-#passwordScreen input {
+#passwordScreen input,
+#passwordScreen button {
   padding: 12px;
   border-radius: 6px;
   border: none;
-  outline: none;
   font-size: 1rem;
+  margin-top: 10px;
 }
 
-#passwordScreen button {
-  margin-top: 12px;
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-/* Floating hearts, beers, emoji bubbles */
+/* Floating emojis */
 .emoji {
   position: fixed;
   bottom: -20px;
-  font-size: 16px;
+  font-size: 18px;
   animation: floatUp linear infinite;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 @keyframes floatUp {
-  from { transform: translateY(0) rotate(0deg); opacity: 0; }
-  20% { opacity: 0.9; }
-  to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
 /* Floating side messages */
@@ -90,169 +65,142 @@ h1 {
   position: fixed;
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
-  background: rgba(255,255,255,0.05);
-  padding: 6px 12px;
-  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  padding: 8px 14px;
+  border-radius: 8px;
   opacity: 0.85;
   white-space: pre-wrap;
   text-align: left;
-  line-height: 1.4;
+  line-height: 1.5;
   animation: floatSide linear infinite;
 }
 
 @keyframes floatSide {
-  from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-  20% { opacity: 0.9; }
-  to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+  from { transform: translateY(100vh) rotate(0deg); }
+  to { transform: translateY(-140vh) rotate(360deg); opacity: 0; }
 }
 
-/* Secret message style */
-.secretMessage {
+/* Secret bubbles */
+.secretBubble {
+  position: fixed;
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  background: rgba(255,255,255,0.05);
-  padding: 16px 20px;
-  border-radius: 8px;
-  margin-top: 25px;
-  text-align: left;
-  white-space: pre-line; /* preserves line breaks */
+  background: rgba(255,255,255,0.15);
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  white-space: pre-line;
+  opacity: 0.9;
+  animation: riseBubble 12s linear forwards;
+}
+
+@keyframes riseBubble {
+  0% { transform: translateY(100vh) scale(0.9); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateY(-130vh) scale(1.1); opacity: 0; }
 }
 </style>
 </head>
 <body>
 
 <audio id="bgMusic" loop>
-  <source src="slow-piano.mp3" type="audio/mpeg">
+  <source src="soft-piano.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Password screen -->
+<!-- Main password -->
 <div id="passwordScreen">
   <h1>Enter Password 🤍</h1>
   <input type="password" id="sitePassword" placeholder="Type here…">
   <button onclick="unlockSite()">Unlock</button>
 </div>
 
-<!-- Main container -->
-<div class="container" id="mainContent" style="display:none;">
-  <h1>For Suyash</h1>
-  <div class="subtitle">
+<div class="container" id="content" style="display:none;">
+  <h1>For Suyash 🤍</h1>
+  <p style="opacity:0.85; font-size:1.05rem;">
     Some wins deserve applause.<br>
-    Some deserve a pause —<br>
-    and a reminder.
-  </div>
-
-  <!-- Timeline -->
-  <div class="timeline">
-    <div class="event">
-      <h3>The quiet days 👀</h3>
-      <p>I saw the effort no one else noticed.🥹</p>
-    </div>
-    <div class="event">
-      <h3>The becoming</h3>
-      <p>Growth that didn’t need announcements.❤️</p>
-    </div>
-    <div class="event">
-      <h3>Today</h3>
-      <p>This is what consistency looks like.😩</p>
-    </div>
-  </div>
-
-  <!-- Secret messages -->
-  <div id="secretMessagesContainer"></div>
+    Some deserve a pause — and a reminder.
+  </p>
 </div>
 
 <script>
-/* Site unlock */
-const sitePassword = "221200";
-
-function unlockSite() {
-  const input = document.getElementById("sitePassword").value;
-  if(input === sitePassword) {
+// ✔️ Site unlock
+const mainPass = "221200";
+function unlockSite(){
+  const entered = document.getElementById("sitePassword").value;
+  if(entered === mainPass){
     document.getElementById("passwordScreen").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
+    document.getElementById("content").style.display = "block";
     document.getElementById("bgMusic").play();
+    startFloatingEmojis();
+    startFloatingSideMessages();
   } else {
-    alert("Try again 🤍");
+    alert("Try again 💛");
   }
 }
 
-/* Floating emojis (hearts, beers, and others) */
-setInterval(() => {
-  const emoji = document.createElement("div");
-  emoji.className = "emoji";
-  const allEmojis = ["🤍","🍺","💫","🌸","✨","🥰"];
-  emoji.innerHTML = allEmojis[Math.floor(Math.random()*allEmojis.length)];
-  emoji.style.left = Math.random()*100 + "vw";
-  emoji.style.fontSize = 14 + Math.random()*24 + "px";
-  emoji.style.animationDuration = 6 + Math.random()*6 + "s";
-  document.body.appendChild(emoji);
-  setTimeout(()=>emoji.remove(),12000);
-}, 500);
+/* Floating emojis */
+function startFloatingEmojis(){
+  setInterval(() => {
+    const e = document.createElement("div");
+    e.className = "emoji";
+    const arr = ["🤍","🍺","✨","🌟","💫","🌸","🥰"];
+    e.innerText = arr[Math.floor(Math.random()*arr.length)];
+    e.style.left = Math.random()*100 + "vw";
+    e.style.fontSize = (14 + Math.random()*24) + "px";
+    e.style.animationDuration = (6 + Math.random()*6) + "s";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),12000);
+  }, 500);
+}
 
 /* Floating side messages */
-const sideMessages = [
+const sideMsgs = [
   "You make quiet days magical 🤍",
-  "Every effort counts 🌸",
-  "Cheers to consistency 🍺",
   "Little wins, big smiles 🥰",
-  "You are appreciated 💫",
-  "Smiles incoming 😉✨",
-  "Happiness spotted 🥰💖"
+  "Cheers to us 🍺✨",
+  "Every effort adds up 💫",
+  "Happiness ⬆️ spreading 🌸🥳"
 ];
 
 function startFloatingSideMessages(){
-  setInterval(()=>{
+  setInterval(() => {
     const msg = document.createElement("div");
     msg.className = "sideMessage";
-    msg.innerHTML = sideMessages[Math.floor(Math.random()*sideMessages.length)];
+    msg.innerText = sideMsgs[Math.floor(Math.random()*sideMsgs.length)];
     msg.style.left = Math.random()>0.5 ? "5vw" : "75vw";
-    msg.style.fontSize = 14 + Math.random()*6 + "px";
-    msg.style.animationDuration = 12 + Math.random()*10 + "s";
+    msg.style.fontSize = (14 + Math.random()*6) + "px";
+    msg.style.animationDuration = (12 + Math.random()*10) + "s";
     document.body.appendChild(msg);
     setTimeout(()=>msg.remove(),25000);
-  },2500);
+  }, 2200);
 }
 
-startFloatingSideMessages();
-
-/* Secret messages floating bubbles */
-const secretMessages = [
-`🤍 Just your hand in mine,
-one look, and butterflies
-everywhere…`,
-
-`🍺 Remember that time you tried cooking
-and set off the smoke alarm? 😂
-Still love it!`,
-
-`✨ You + me = chaos and giggles.
-Forever equation 💫`,
-
-`🌸 Every quiet moment with you
-feels loud in my heart 🥰`
+/* Password protected secret messages */
+const secretList = [
+  {pass:"sweet1", text:`🤍 You make my quiet days shine brighter…\nEvery heartbeat feels like a soft song.`},
+  {pass:"funny2", text:`🍺 Remember the time we laughed so hard\nI love embarressng you 😂`},
+  {pass:"cozy3", text:`✨ I love how you yawn, eyes half shut,\nbut still pull me close 🥰`},
+  {pass:"deep4", text:`🌸 With you, silence speaks louder\nthan a thousand words 💫`}
 ];
 
-function showSecretMessage(index){
-  const container = document.getElementById("secretMessagesContainer");
-  const msg = document.createElement("div");
-  msg.className = "secretMessage";
-  msg.innerText = secretMessages[index];
-  container.appendChild(msg);
+function askSecret(){
+  const pin = prompt("Enter secret message password 🤍");
+  const found = secretList.find(s => s.pass === pin);
+  if(found) showBubble(found.text);
+  else alert("Hmm… not quite the right one 🤍");
 }
 
-/* Example: show all messages on unlock slowly */
-let msgIndex = 0;
-function showMessagesSlowly(){
-  const interval = setInterval(()=>{
-    if(msgIndex>=secretMessages.length) return clearInterval(interval);
-    showSecretMessage(msgIndex);
-    msgIndex++;
-  },2000);
+function showBubble(message){
+  const b = document.createElement("div");
+  b.className = "secretBubble";
+  b.innerText = message;
+  b.style.left = (20 + Math.random()*60) + "vw";
+  document.body.appendChild(b);
+  setTimeout(() => b.remove(), 14000);
 }
 
-/* Trigger secret messages display after unlocking */
-document.getElementById("bgMusic").addEventListener("play", showMessagesSlowly);
+// Show prompt roughly every time user clicks anywhere
+document.body.addEventListener("click", askSecret);
 </script>
 
 </body>
