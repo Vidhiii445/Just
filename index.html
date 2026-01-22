@@ -19,7 +19,7 @@ body {
 /* Center content */
 .container {
   max-width: 600px;
-  margin: 10vh auto;
+  margin: 15vh auto;
   text-align: center;
   position: relative;
   z-index: 5;
@@ -34,79 +34,54 @@ h1 {
 .subtitle {
   font-size: 1.05rem;
   opacity: 0.85;
+  line-height: 1.6;
 }
 
-/* Timeline */
-.timeline {
-  margin-top: 40px;
-  text-align: left;
+/* Password overlay */
+#passwordScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #0f172a, #1e293b);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  color: #f8fafc;
 }
 
-.event {
-  margin-bottom: 25px;
-}
-
-.event h3 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.event p {
-  margin: 5px 0 0;
-  opacity: 0.85;
-  font-size: 0.95rem;
-}
-
-/* Password */
-#passwordBox, .passwordBox {
-  margin-top: 30px;
-}
-
-input {
-  padding: 10px;
+#passwordScreen input {
+  padding: 12px;
   border-radius: 6px;
   border: none;
   outline: none;
-  margin-top: 10px;
+  font-size: 1rem;
 }
 
-button {
+#passwordScreen button {
+  margin-top: 12px;
   padding: 10px 18px;
   border-radius: 6px;
   border: none;
-  margin-left: 8px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
-/* Secret messages */
-.secretMessage {
-  display: none;
-  margin-top: 30px;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  background: rgba(255,255,255,0.05);
-  padding: 12px 16px;
-  border-radius: 6px;
-}
-
-/* Floating hearts & beers */
-.heart, .beer {
+/* Floating hearts, beers, emoji bubbles */
+.emoji {
   position: fixed;
   bottom: -20px;
   font-size: 16px;
   animation: floatUp linear infinite;
-  opacity: 0.5;
-}
-
-.beer {
-  font-size: 20px;
+  opacity: 0.6;
 }
 
 @keyframes floatUp {
   from { transform: translateY(0) rotate(0deg); opacity: 0; }
-  20% { opacity: 0.6; }
+  20% { opacity: 0.9; }
   to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
@@ -116,10 +91,12 @@ button {
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
   background: rgba(255,255,255,0.05);
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 6px;
-  opacity: 0.8;
-  white-space: nowrap;
+  opacity: 0.85;
+  white-space: pre-wrap;
+  text-align: left;
+  line-height: 1.4;
   animation: floatSide linear infinite;
 }
 
@@ -128,144 +105,154 @@ button {
   20% { opacity: 0.9; }
   to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
+
+/* Secret message style */
+.secretMessage {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  background: rgba(255,255,255,0.05);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-top: 25px;
+  text-align: left;
+  white-space: pre-line; /* preserves line breaks */
+}
 </style>
 </head>
-
 <body>
 
 <audio id="bgMusic" loop>
-  <source src="piano.mp3" type="audio/mpeg">
+  <source src="slow-piano.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
+<!-- Password screen -->
+<div id="passwordScreen">
+  <h1>Enter Password 🤍</h1>
+  <input type="password" id="sitePassword" placeholder="Type here…">
+  <button onclick="unlockSite()">Unlock</button>
+</div>
+
+<!-- Main container -->
+<div class="container" id="mainContent" style="display:none;">
   <h1>For Suyash</h1>
   <div class="subtitle">
-    Some wins deserve applause.  
-    Some deserve a pause — and a reminder.
+    Some wins deserve applause.<br>
+    Some deserve a pause —<br>
+    and a reminder.
   </div>
 
+  <!-- Timeline -->
   <div class="timeline">
     <div class="event">
-      <h3>The quiet days</h3>
-      <p>I saw the effort no one else noticed.</p>
+      <h3>The quiet days 👀</h3>
+      <p>I saw the effort no one else noticed.🥹</p>
     </div>
     <div class="event">
       <h3>The becoming</h3>
-      <p>Growth that didn’t need announcements.</p>
+      <p>Growth that didn’t need announcements.❤️</p>
     </div>
     <div class="event">
       <h3>Today</h3>
-      <p>This is what consistency looks like.</p>
+      <p>This is what consistency looks like.😩</p>
     </div>
   </div>
 
-  <!-- Password boxes for multiple messages -->
-  <div class="passwordBox">
-    <p>Enter password for message 1:</p>
-    <input type="password" class="pass" data-msg="1">
-    <button onclick="unlockMessage(1)">Unlock</button>
-  </div>
-
-  <div class="passwordBox">
-    <p>Enter password for message 2:</p>
-    <input type="password" class="pass" data-msg="2">
-    <button onclick="unlockMessage(2)">Unlock</button>
-  </div>
-
-  <div class="passwordBox">
-    <p>Enter password for message 3:</p>
-    <input type="password" class="pass" data-msg="3">
-    <button onclick="unlockMessage(3)">Unlock</button>
-  </div>
-
-  <div class="passwordBox">
-    <p>Enter password for message 4:</p>
-    <input type="password" class="pass" data-msg="4">
-    <button onclick="unlockMessage(4)">Unlock</button>
-  </div>
-
   <!-- Secret messages -->
-  <div id="secret1" class="secretMessage">
-    Sweet and heartfelt: <br>
-    Just your hand in mine… one look, and butterflies everywhere.
-  </div>
-  <div id="secret2" class="secretMessage">
-    Funny: <br>
-    I stay with you everyday still feels less to me.
-  </div>
-  <div id="secret3" class="secretMessage">
-    Quirky: <br>
-    You + me = chaos and giggles. Forever equation.
-  </div>
-  <div id="secret4" class="secretMessage">
-    Sweet: <br>
-    Every quiet moment with you feels loud in my heart.
-  </div>
+  <div id="secretMessagesContainer"></div>
 </div>
 
 <script>
-/* Background music */
-function playMusic() {
-  document.getElementById("bgMusic").play();
-}
+/* Site unlock */
+const sitePassword = "221200";
 
-/* Password unlock for multiple messages */
-const passwords = {
-  1: "221200",
-  2: "laugh",
-  3: "chaos",
-  4: "sweet"
-};
-
-function unlockMessage(id) {
-  const input = document.querySelector(`input[data-msg="${id}"]`).value;
-  if(input === passwords[id]) {
-    document.getElementById("secret" + id).style.display = "block";
-    playMusic();
+function unlockSite() {
+  const input = document.getElementById("sitePassword").value;
+  if(input === sitePassword) {
+    document.getElementById("passwordScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    document.getElementById("bgMusic").play();
   } else {
     alert("Try again 🤍");
   }
 }
 
-/* Floating hearts & beers */
+/* Floating emojis (hearts, beers, and others) */
 setInterval(() => {
   const emoji = document.createElement("div");
-  const isBeer = Math.random() > 0.5;
-  emoji.className = isBeer ? "beer" : "heart";
-  emoji.innerHTML = isBeer ? "🍺" : "🤍";
-  emoji.style.left = Math.random() * 100 + "vw";
-  emoji.style.fontSize = 14 + Math.random() * 16 + "px";
-  emoji.style.animationDuration = 6 + Math.random() * 6 + "s";
+  emoji.className = "emoji";
+  const allEmojis = ["🤍","🍺","💫","🌸","✨","🥰"];
+  emoji.innerHTML = allEmojis[Math.floor(Math.random()*allEmojis.length)];
+  emoji.style.left = Math.random()*100 + "vw";
+  emoji.style.fontSize = 14 + Math.random()*24 + "px";
+  emoji.style.animationDuration = 6 + Math.random()*6 + "s";
   document.body.appendChild(emoji);
-  setTimeout(() => emoji.remove(), 12000);
-}, 600);
+  setTimeout(()=>emoji.remove(),12000);
+}, 500);
 
 /* Floating side messages */
 const sideMessages = [
-  "You make quiet days magical",
-  "Every effort counts",
-  "Cheers to consistency",
-  "Little wins, big smiles",
-  "You are appreciated",
-  "Smiles incoming 😉",
-  "Happiness spotted!"
+  "You make quiet days magical 🤍",
+  "Every effort counts 🌸",
+  "Cheers to consistency 🍺",
+  "Little wins, big smiles 🥰",
+  "You are appreciated 💫",
+  "Smiles incoming 😉✨",
+  "Happiness spotted 🥰💖"
 ];
 
-function startFloatingMessages() {
-  setInterval(() => {
+function startFloatingSideMessages(){
+  setInterval(()=>{
     const msg = document.createElement("div");
     msg.className = "sideMessage";
-    msg.innerHTML = sideMessages[Math.floor(Math.random() * sideMessages.length)];
-    msg.style.left = Math.random() > 0.5 ? "5vw" : "75vw";
-    msg.style.fontSize = 14 + Math.random() * 6 + "px";
-    msg.style.animationDuration = 12 + Math.random() * 10 + "s";
+    msg.innerHTML = sideMessages[Math.floor(Math.random()*sideMessages.length)];
+    msg.style.left = Math.random()>0.5 ? "5vw" : "75vw";
+    msg.style.fontSize = 14 + Math.random()*6 + "px";
+    msg.style.animationDuration = 12 + Math.random()*10 + "s";
     document.body.appendChild(msg);
-    setTimeout(() => msg.remove(), 25000);
-  }, 2500);
+    setTimeout(()=>msg.remove(),25000);
+  },2500);
 }
 
-// Start floating messages on page load
-startFloatingMessages();
+startFloatingSideMessages();
+
+/* Secret messages floating bubbles */
+const secretMessages = [
+`🤍 Just your hand in mine,
+one look, and butterflies
+everywhere…`,
+
+`🍺 Remember that time you tried cooking
+and set off the smoke alarm? 😂
+Still love it!`,
+
+`✨ You + me = chaos and giggles.
+Forever equation 💫`,
+
+`🌸 Every quiet moment with you
+feels loud in my heart 🥰`
+];
+
+function showSecretMessage(index){
+  const container = document.getElementById("secretMessagesContainer");
+  const msg = document.createElement("div");
+  msg.className = "secretMessage";
+  msg.innerText = secretMessages[index];
+  container.appendChild(msg);
+}
+
+/* Example: show all messages on unlock slowly */
+let msgIndex = 0;
+function showMessagesSlowly(){
+  const interval = setInterval(()=>{
+    if(msgIndex>=secretMessages.length) return clearInterval(interval);
+    showSecretMessage(msgIndex);
+    msgIndex++;
+  },2000);
+}
+
+/* Trigger secret messages display after unlocking */
+document.getElementById("bgMusic").addEventListener("play", showMessagesSlowly);
 </script>
 
 </body>
