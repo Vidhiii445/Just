@@ -9,7 +9,7 @@
 <style>
 body {
   margin: 0;
-  background: linear-gradient(135deg, #0b1020, #1a2540);
+  background: linear-gradient(120deg, #0f172a, #1e293b);
   color: #f8fafc;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
@@ -18,8 +18,8 @@ body {
 
 /* MAIN CONTENT */
 .container {
-  max-width: 640px;
-  margin: 16vh auto;
+  max-width: 620px;
+  margin: 14vh auto;
   text-align: center;
   position: relative;
   z-index: 5;
@@ -28,54 +28,40 @@ body {
 h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 
-.subtitle {
-  font-size: 1.05rem;
-  opacity: 0.85;
-  line-height: 1.7;
+.timeline {
+  font-size: 1.15rem;
+  line-height: 1.8;
 }
 
-/* PASSWORD SCREEN */
-#passwordScreen {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #0b1020, #1a2540);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
+.timeline .block {
+  margin-bottom: 26px;
 }
 
-#passwordScreen input {
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  font-size: 1rem;
+.timeline .title {
+  font-weight: 600;
+  font-size: 1.25rem;
 }
 
-#passwordScreen button {
-  margin-top: 12px;
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+.proud {
+  margin-top: 40px;
+  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
 }
 
 /* FLOATING EMOJIS */
 .emoji {
   position: fixed;
   bottom: -20px;
-  font-size: 18px;
   animation: floatUp linear infinite;
   opacity: 0.6;
 }
 
 @keyframes floatUp {
   from { transform: translateY(0); opacity: 0; }
-  20% { opacity: 1; }
+  20% { opacity: 0.9; }
   to { transform: translateY(-120vh); opacity: 0; }
 }
 
@@ -84,237 +70,209 @@ h1 {
   position: fixed;
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
-  background: rgba(255,255,255,0.05);
-  padding: 6px 12px;
-  border-radius: 6px;
-  opacity: 0.85;
-  white-space: pre-wrap;
-  text-align: left;
-  line-height: 1.4;
+  background: rgba(255,255,255,0.06);
+  padding: 8px 14px;
+  border-radius: 8px;
+  opacity: 0.9;
   animation: floatSide linear infinite;
 }
 
 @keyframes floatSide {
-  from { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  from { transform: translateY(110vh); opacity: 0; }
   20% { opacity: 0.9; }
-  to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+  to { transform: translateY(-120vh); opacity: 0; }
 }
 
-/* ENVELOPES */
-.envelope {
-  position: fixed;
-  width: 110px;
-  height: 80px;
-  background: #f8fafc;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  z-index: 4;
-}
-
-.envelope:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%);
-}
-
-.envelope span {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-
-/* POLAROID */
+/* POLAROIDS */
 .polaroid {
-  position: absolute;
-  top: -320px;
-  left: -45px;
-  width: 200px;
+  position: fixed;
+  width: 140px;
   background: #fff;
-  color: #111;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-  opacity: 0;
-  transform: translateY(40px) rotate(-3deg);
-  transition: all 0.6s ease;
+  padding: 10px 10px 26px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  transform: rotate(var(--r));
+  animation: drift 16s ease-in-out infinite;
+  z-index: 2;
 }
 
 .polaroid img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  display: block;
 }
 
-.polaroid .note {
+@keyframes drift {
+  0%,100% { transform: translateY(0) rotate(var(--r)); }
+  50% { transform: translateY(-28px) rotate(calc(var(--r) + 3deg)); }
+}
+
+/* ENVELOPES */
+.envelopes {
+  position: fixed;
+  bottom: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  z-index: 10;
+}
+
+.envelope {
+  width: 58px;
+  height: 38px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  border-left: 29px solid transparent;
+  border-right: 29px solid transparent;
+  border-top: 20px solid #ddd;
+  top: 0;
+  left: 0;
+}
+
+/* NOTE MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: #fffdf8;
+  color: #2b2b2b;
+  padding: 26px 28px;
+  border-radius: 14px;
+  max-width: 380px;
   font-family: 'Patrick Hand', cursive;
-  font-size: 1.05rem;
-  margin-top: 6px;
+  font-size: 1.45rem;
+  text-align: center;
 }
-
-/* ENVELOPE OPEN ANIMATION */
-.envelope.open .polaroid {
-  opacity: 1;
-  transform: translateY(0) rotate(-2deg);
-}
-
-/* POSITIONS */
-.left1 { left: 4vw; top: 18vh; }
-.left2 { left: 4vw; top: 45vh; }
-.left3 { left: 4vw; top: 72vh; }
-
-.right1 { right: 4vw; top: 22vh; }
-.right2 { right: 4vw; top: 55vh; }
-.right3 { right: 4vw; top: 82vh; }
 </style>
 </head>
 
 <body>
 
-<div id="passwordScreen">
-  <h1>Enter Password 🤍</h1>
-  <input type="password" id="sitePassword" placeholder="Type here…">
-  <button onclick="unlockSite()">Unlock</button>
-</div>
+<!-- FLOATING EMOJIS -->
+<script>
+const emojis = ["🤍","🍺","✨","💫","❤️‍🔥","🌸","🥰","🍻"];
+setInterval(()=>{
+  const e = document.createElement("div");
+  e.className="emoji";
+  e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left = Math.random()*100 + "vw";
+  e.style.fontSize = 16 + Math.random()*22 + "px";
+  e.style.animationDuration = 6 + Math.random()*6 + "s";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),12000);
+},500);
+</script>
 
-<div class="container" id="mainContent" style="display:none;">
-  <h1>For You 🤍</h1>
-  <div class="subtitle">
-    I’ve seen you on your quieter days.<br>
-    The days you didn’t say much.<br><br>
-    Today, these are happy tears —<br>
-    because I always knew.
-  </div>
-</div>
+<!-- FLOATING SIDE MESSAGES -->
+<script>
+const sideMessages = [
+  "quiet strength 🤍",
+  "growth without noise ✨",
+  "consistency wins 💫",
+  "so proud 🥹",
+  "heart full ❤️‍🔥"
+];
+setInterval(()=>{
+  const s = document.createElement("div");
+  s.className="sideMessage";
+  s.innerText = sideMessages[Math.floor(Math.random()*sideMessages.length)];
+  s.style.left = Math.random()>0.5 ? "6vw" : "78vw";
+  s.style.animationDuration = 14 + Math.random()*10 + "s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),25000);
+},2600);
+</script>
 
-<!-- ENVELOPES + POLAROIDS -->
+<!-- POLAROIDS -->
+<div class="polaroid" style="left:5%; top:140px; --r:-7deg;"><img src="images/img1.jpeg"></div>
+<div class="polaroid" style="left:6%; top:420px; --r:5deg;"><img src="images/img2.jpeg"></div>
+<div class="polaroid" style="right:6%; top:160px; --r:6deg;"><img src="images/img3.jpeg"></div>
+<div class="polaroid" style="right:7%; top:440px; --r:-6deg;"><img src="images/img4.jpeg"></div>
+<div class="polaroid" style="right:18%; top:300px; --r:4deg;"><img src="images/img5.jpeg"></div>
 
-<div class="envelope left1" onclick="this.classList.toggle('open')">
-  <span>✉️</span>
-  <div class="polaroid">
-    <img src="images/img1.jpeg">
-    <div class="note">
-      I just want to hold your hand,<br>
-      look into your eyes —<br>
-      because the butterflies never change.
+<!-- MAIN CONTENT -->
+<div class="container">
+  <h1>For Suyash 🤍</h1>
+
+  <div class="timeline">
+    <div class="block">
+      <div class="title">The quiet days 👀</div>
+      I saw the effort no one else noticed. 🥹
+    </div>
+
+    <div class="block">
+      <div class="title">The becoming ❤️</div>
+      Growth that didn’t need announcements. ☺️
+    </div>
+
+    <div class="block">
+      <div class="title">Today 🙈</div>
+      This is what consistency looks like. 💕
     </div>
   </div>
-</div>
 
-<div class="envelope left2" onclick="this.classList.toggle('open')">
-  <span>✉️</span>
-  <div class="polaroid">
-    <img src="images/img2.jpeg">
-    <div class="note">
-      Being with you every day<br>
-      still feels less.<br>
-      I always want more.
-    </div>
+  <div class="proud">
+    I hope you know, <br>
+    we are proud of you ❤️‍🔥
   </div>
 </div>
 
-<div class="envelope left3" onclick="this.classList.toggle('open')">
-  <span>✉️</span>
-  <div class="polaroid">
-    <img src="images/img3.jpeg">
-    <div class="note">
-      Every quiet moment with you<br>
-      feels loud in my heart.<br>
-      Always you.
-    </div>
-  </div>
+<!-- ENVELOPES -->
+<div class="envelopes">
+  <div class="envelope" onclick="openMsg(0)"></div>
+  <div class="envelope" onclick="openMsg(1)"></div>
+  <div class="envelope" onclick="openMsg(2)"></div>
+  <div class="envelope" onclick="openMsg(3)"></div>
+  <div class="envelope" onclick="openMsg(4)"></div>
+  <div class="envelope" onclick="openMsg(5)"></div>
+  <div class="envelope" onclick="openMsg(6)"></div>
+  <div class="envelope" onclick="openMsg(7)"></div>
+  <div class="envelope" onclick="openMsg(8)"></div>
 </div>
 
-<div class="envelope right1" onclick="this.classList.toggle('open')">
-  <span>✉️</span>
-  <div class="polaroid">
-    <img src="images/img4.jpeg">
-    <div class="note">
-      You + me = endless smiles.<br>
-      Still my favourite person.
-    </div>
-  </div>
-</div>
-
-<div class="envelope right2" onclick="this.classList.toggle('open')">
-  <span>✉️</span>
-  <div class="polaroid">
-    <img src="images/img5.jpeg">
-    <div class="note">
-      Even on the quietest days,<br>
-      I see you, and I’m proud.
-    </div>
-  </div>
-</div>
-
-<div class="envelope right3" onclick="this.classList.toggle('open')">
-  <span>✉️</span>
-  <div class="polaroid">
-    <img src="images/img1.jpeg"> <!-- Reuse or swap as needed -->
-    <div class="note">
-      Every moment with you<br>
-      is a story worth telling.
-    </div>
-  </div>
+<!-- NOTE MODAL -->
+<div class="modal" id="modal" onclick="this.style.display='none'">
+  <div class="modal-content" id="modalText"></div>
 </div>
 
 <script>
-const sitePassword = "221200";
+const messages = [
+"🍺 Drunken nights with you are funny, reckless, a little hot ❤️‍🔥\nzero complaints — only memories I replay 😏✨",
 
-function unlockSite() {
-  const input = document.getElementById("sitePassword").value;
-  if (input === sitePassword) {
-    document.getElementById("passwordScreen").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-    document.getElementById("bgMusic").play();
-    document.querySelectorAll(".envelope").forEach(e => e.style.display = "block");
-  } else {
-    alert("Try again 🤍");
-  }
-}
+"🍻😏 Are you tired?\nBecause you’ve been running through my drunk thoughts all night ❤️‍🔥",
 
-/* Floating emojis */
-setInterval(() => {
-  const emoji = document.createElement("div");
-  emoji.className = "emoji";
-  const allEmojis = ["🤍", "🍺", "💫", "🌸", "✨", "🥰"];
-  emoji.innerHTML = allEmojis[Math.floor(Math.random() * allEmojis.length)];
-  emoji.style.left = Math.random() * 100 + "vw";
-  emoji.style.fontSize = 14 + Math.random() * 24 + "px";
-  emoji.style.animationDuration = 6 + Math.random() * 6 + "s";
-  document.body.appendChild(emoji);
-  setTimeout(() => emoji.remove(), 12000);
-}, 500);
+"🌸 Every quiet moment with you\nsomehow makes my heart louder 🥰💭",
 
-/* Floating side messages */
-const sideMessages = [
-  "You make quiet days magical 🤍",
-  "Every effort counts 🌸",
-  "Cheers to consistency 🍺",
-  "Little wins, big smiles 🥰",
-  "You are appreciated 💫",
-  "Smiles incoming 😉✨",
-  "Happiness spotted 🥰💖"
+"✨ You + me = chaos & giggles 🤍\nthe kind of math I never want to solve 💫😌",
+
+"🫶 I just want to hold your hand and look into your eyes\nbecause it still gives me the same butterflies…\nand being with you every day still feels less ❤️‍🔥✨",
+
+"💫 I’ve seen your effort, your silence, your patience.\nI am so damn proud of you 🤍✨",
+
+"🥹 Watching you grow into this version of yourself\nmakes my heart feel full — happy tears 💗🌙",
+
+"😌 With you, even doing nothing\nfeels like something I’ll miss 💫🫶",
+
+"🌙 Some people feel exciting.\nYou feel like excitement and comfort — unfair combo 💗✨"
 ];
 
-function startFloatingSideMessages() {
-  setInterval(() => {
-    const msg = document.createElement("div");
-    msg.className = "sideMessage";
-    msg.innerHTML = sideMessages[Math.floor(Math.random() * sideMessages.length)];
-    msg.style.left = Math.random() > 0.5 ? "5vw" : "75vw";
-    msg.style.fontSize = 14 + Math.random() * 6 + "px";
-    msg.style.animationDuration = 12 + Math.random() * 10 + "s";
-    document.body.appendChild(msg);
-    setTimeout(() => msg.remove(), 25000);
-  }, 2500);
+function openMsg(i){
+  document.getElementById("modalText").innerText = messages[i];
+  document.getElementById("modal").style.display = "flex";
 }
-
-startFloatingSideMessages();
 </script>
 
 </body>
