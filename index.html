@@ -2,277 +2,240 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Suyash 🤍</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400&family=Patrick+Hand&display=swap" rel="stylesheet">
+<title>For You ❤️</title>
 
 <style>
 body {
   margin: 0;
-  background: linear-gradient(120deg, #0f172a, #1e293b);
-  color: #f8fafc;
-  font-family: 'Inter', sans-serif;
+  padding: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+  color: white;
   overflow-x: hidden;
-  position: relative;
 }
 
-/* MAIN CONTENT */
-.container {
-  max-width: 620px;
-  margin: 14vh auto;
+/* MAIN CONTENT — UNTOUCHED */
+.main-content {
   text-align: center;
+  padding: 60px 20px;
+  z-index: 2;
   position: relative;
-  z-index: 5;
 }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  margin-bottom: 30px;
+.main-content h2 {
+  margin-bottom: 8px;
 }
 
-.timeline {
-  font-size: 1.15rem;
-  line-height: 1.8;
+.main-content p {
+  margin-top: 0;
+  opacity: 0.9;
 }
 
-.timeline .block {
-  margin-bottom: 26px;
-}
-
-.timeline .title {
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-.proud {
-  margin-top: 40px;
-  font-size: 1.2rem;
-  font-family: 'Playfair Display', serif;
-}
-
-/* FLOATING EMOJIS */
+/* FLOATING EMOJIS BACKGROUND */
 .emoji {
   position: fixed;
-  bottom: -20px;
-  animation: floatUp linear infinite;
-  opacity: 0.6;
+  bottom: -50px;
+  font-size: 26px;
+  animation: floatUp 10s linear infinite;
+  opacity: 0.8;
 }
 
 @keyframes floatUp {
-  from { transform: translateY(0); opacity: 0; }
-  20% { opacity: 0.9; }
-  to { transform: translateY(-120vh); opacity: 0; }
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
 }
 
-/* FLOATING SIDE MESSAGES */
-.sideMessage {
+/* SIDE SECRET FLOATING MESSAGES */
+.side-message {
   position: fixed;
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  background: rgba(255,255,255,0.06);
-  padding: 8px 14px;
-  border-radius: 8px;
-  opacity: 0.9;
-  animation: floatSide linear infinite;
-}
-
-@keyframes floatSide {
-  from { transform: translateY(110vh); opacity: 0; }
-  20% { opacity: 0.9; }
-  to { transform: translateY(-120vh); opacity: 0; }
-}
-
-/* POLAROIDS */
-.polaroid {
-  position: fixed;
-  width: 140px;
-  background: #fff;
-  padding: 10px 10px 26px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-  transform: rotate(var(--r));
-  animation: drift 16s ease-in-out infinite;
-  z-index: 2;
-}
-
-.polaroid img {
-  width: 100%;
-  display: block;
+  font-size: 14px;
+  opacity: 0.6;
+  animation: drift 12s linear infinite;
 }
 
 @keyframes drift {
-  0%,100% { transform: translateY(0) rotate(var(--r)); }
-  50% { transform: translateY(-28px) rotate(calc(var(--r) + 3deg)); }
+  from { transform: translateX(0); }
+  to { transform: translateX(120vw); }
 }
 
 /* ENVELOPES */
 .envelopes {
-  position: fixed;
-  bottom: 24px;
-  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
-  z-index: 10;
+  gap: 25px;
+  padding: 40px;
 }
 
 .envelope {
-  width: 58px;
-  height: 38px;
+  width: 160px;
+  height: 110px;
   background: #f5f5f5;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
+  transition: transform 0.3s;
+}
+
+.envelope:hover {
+  transform: scale(1.05);
 }
 
 .envelope::before {
-  content: '';
+  content: "💌";
+  font-size: 36px;
   position: absolute;
-  border-left: 29px solid transparent;
-  border-right: 29px solid transparent;
-  border-top: 20px solid #ddd;
-  top: 0;
-  left: 0;
+  top: 30px;
+  left: 60px;
 }
 
-/* NOTE MODAL */
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.85);
+  z-index: 10;
   justify-content: center;
   align-items: center;
-  z-index: 50;
 }
 
 .modal-content {
-  background: #fffdf8;
-  color: #2b2b2b;
-  padding: 26px 28px;
-  border-radius: 14px;
-  max-width: 380px;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.45rem;
+  background: #fffaf0;
+  color: #333;
+  width: 320px;
+  padding: 20px;
+  border-radius: 10px;
   text-align: center;
+  transform: rotate(-2deg);
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.close {
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }
 </style>
 </head>
 
 <body>
 
-<!-- FLOATING EMOJIS -->
-<script>
-const emojis = ["🤍","🍺","✨","💫","❤️‍🔥","🌸","🥰","🍻"];
-setInterval(()=>{
-  const e = document.createElement("div");
-  e.className="emoji";
-  e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left = Math.random()*100 + "vw";
-  e.style.fontSize = 16 + Math.random()*22 + "px";
-  e.style.animationDuration = 6 + Math.random()*6 + "s";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),12000);
-},500);
-</script>
+<!-- MAIN CONTENT — EXACT -->
+<div class="main-content">
+  <h2>The quiet days 👀</h2>
+  <p>I saw the effort no one else noticed. 🥹</p>
 
-<!-- FLOATING SIDE MESSAGES -->
-<script>
-const sideMessages = [
-  "quiet strength 🤍",
-  "growth without noise ✨",
-  "consistency wins 💫",
-  "so proud 🥹",
-  "heart full ❤️‍🔥"
-];
-setInterval(()=>{
-  const s = document.createElement("div");
-  s.className="sideMessage";
-  s.innerText = sideMessages[Math.floor(Math.random()*sideMessages.length)];
-  s.style.left = Math.random()>0.5 ? "6vw" : "78vw";
-  s.style.animationDuration = 14 + Math.random()*10 + "s";
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),25000);
-},2600);
-</script>
+  <h2>The becoming ❤️</h2>
+  <p>Growth that didn’t need announcements. ☺️</p>
 
-<!-- POLAROIDS -->
-<div class="polaroid" style="left:5%; top:140px; --r:-7deg;"><img src="images/img1.jpeg"></div>
-<div class="polaroid" style="left:6%; top:420px; --r:5deg;"><img src="images/img2.jpeg"></div>
-<div class="polaroid" style="right:6%; top:160px; --r:6deg;"><img src="images/img3.jpeg"></div>
-<div class="polaroid" style="right:7%; top:440px; --r:-6deg;"><img src="images/img4.jpeg"></div>
-<div class="polaroid" style="right:18%; top:300px; --r:4deg;"><img src="images/img5.jpeg"></div>
+  <h2>Today 🙈</h2>
+  <p>This is what consistency looks like. 💕</p>
 
-<!-- MAIN CONTENT -->
-<div class="container">
-  <h1>For Suyash 🤍</h1>
-
-  <div class="timeline">
-    <div class="block">
-      <div class="title">The quiet days 👀</div>
-      I saw the effort no one else noticed. 🥹
-    </div>
-
-    <div class="block">
-      <div class="title">The becoming ❤️</div>
-      Growth that didn’t need announcements. ☺️
-    </div>
-
-    <div class="block">
-      <div class="title">Today 🙈</div>
-      This is what consistency looks like. 💕
-    </div>
-  </div>
-
-  <div class="proud">
-    I hope you know, <br>
-    we are proud of you ❤️‍🔥
-  </div>
+  <p><strong>I hope you know, we are proud of you ❤️‍🔥</strong></p>
 </div>
 
 <!-- ENVELOPES -->
 <div class="envelopes">
-  <div class="envelope" onclick="openMsg(0)"></div>
-  <div class="envelope" onclick="openMsg(1)"></div>
-  <div class="envelope" onclick="openMsg(2)"></div>
-  <div class="envelope" onclick="openMsg(3)"></div>
-  <div class="envelope" onclick="openMsg(4)"></div>
-  <div class="envelope" onclick="openMsg(5)"></div>
-  <div class="envelope" onclick="openMsg(6)"></div>
-  <div class="envelope" onclick="openMsg(7)"></div>
-  <div class="envelope" onclick="openMsg(8)"></div>
+  <div class="envelope" onclick="openEnvelope(0)"></div>
+  <div class="envelope" onclick="openEnvelope(1)"></div>
+  <div class="envelope" onclick="openEnvelope(2)"></div>
+  <div class="envelope" onclick="openEnvelope(3)"></div>
+  <div class="envelope" onclick="openEnvelope(4)"></div>
+  <div class="envelope" onclick="openEnvelope(5)"></div>
+  <div class="envelope" onclick="openEnvelope(6)"></div>
+  <div class="envelope" onclick="openEnvelope(7)"></div>
 </div>
 
-<!-- NOTE MODAL -->
-<div class="modal" id="modal" onclick="this.style.display='none'">
-  <div class="modal-content" id="modalText"></div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <img id="modalImg" src="">
+    <p id="modalText"></p>
+    <div class="close" onclick="closeEnvelope()">close ✨</div>
+  </div>
 </div>
 
 <script>
 const messages = [
-"🍺 Drunken nights with you are funny, reckless, a little hot ❤️‍🔥\nzero complaints — only memories I replay 😏✨",
-
-"🍻😏 Are you tired?\nBecause you’ve been running through my drunk thoughts all night ❤️‍🔥",
-
-"🌸 Every quiet moment with you\nsomehow makes my heart louder 🥰💭",
-
-"✨ You + me = chaos & giggles 🤍\nthe kind of math I never want to solve 💫😌",
-
-"🫶 I just want to hold your hand and look into your eyes\nbecause it still gives me the same butterflies…\nand being with you every day still feels less ❤️‍🔥✨",
-
-"💫 I’ve seen your effort, your silence, your patience.\nI am so damn proud of you 🤍✨",
-
-"🥹 Watching you grow into this version of yourself\nmakes my heart feel full — happy tears 💗🌙",
-
-"😌 With you, even doing nothing\nfeels like something I’ll miss 💫🫶",
-
-"🌙 Some people feel exciting.\nYou feel like excitement and comfort — unfair combo 💗✨"
+  {
+    img: "Images/img1.jpeg",
+    text: "🍺 Drunken and high nights with you are the funniest, hottest chaos ever ❤️‍🔥 Not complaining even a little."
+  },
+  {
+    img: "Images/img2.jpeg",
+    text: "✨ You + me = chaos, giggles & forever 💫 Honestly the only math I enjoy."
+  },
+  {
+    img: "Images/img3.jpeg",
+    text: "🌸 Every quiet moment with you feels loud in my heart 🥰 and I wouldn’t mute it for anything."
+  },
+  {
+    img: "Images/img4.jpeg",
+    text: "😌 I’m really really proud of you. For growing, showing up, and still being soft."
+  },
+  {
+    img: "Images/img5.jpeg",
+    text: "🔥 Watching you become *you* has been my favourite story so far."
+  },
+  {
+    img: "Images/img1.jpeg",
+    text: "😏 Are you consistency? Because damn… you never ghost and always deliver."
+  },
+  {
+    img: "Images/img2.jpeg",
+    text: "❤️‍🔥 I hope you see yourself the way I see you — strong, trying, and glowing."
+  },
+  {
+    img: "Images/img3.jpeg",
+    text: "🥹 Soft reminder: I’m proud of you even on days you think you did nothing."
+  }
 ];
 
-function openMsg(i){
-  document.getElementById("modalText").innerText = messages[i];
+function openEnvelope(i) {
+  document.getElementById("modalImg").src = messages[i].img;
+  document.getElementById("modalText").innerText = messages[i].text;
   document.getElementById("modal").style.display = "flex";
 }
+
+function closeEnvelope() {
+  document.getElementById("modal").style.display = "none";
+}
+
+/* EMOJIS */
+const emojis = ["❤️‍🔥","✨","🥰","🍺","💫","💖","😌","🔥"];
+setInterval(() => {
+  const e = document.createElement("div");
+  e.className = "emoji";
+  e.style.left = Math.random()*100 + "vw";
+  e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+  document.body.appendChild(e);
+  setTimeout(() => e.remove(), 10000);
+}, 500);
+
+/* SIDE FLOATING TEXT */
+const sideTexts = [
+  "you are loved 💖",
+  "soft but strong ✨",
+  "still choosing growth 🥹",
+  "hot & healing ❤️‍🔥",
+  "my favourite human 🥰"
+];
+
+sideTexts.forEach((t,i)=>{
+  const s=document.createElement("div");
+  s.className="side-message";
+  s.style.top=(20+i*15)+"%";
+  s.style.left="-30vw";
+  s.innerText=t;
+  document.body.appendChild(s);
+});
 </script>
 
 </body>
