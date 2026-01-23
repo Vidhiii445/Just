@@ -14,21 +14,68 @@ body {
   overflow-x: hidden;
 }
 
+/* PASSWORD LOCK */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #000000, #1c1c3c);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lock-box {
+  background: #fffaf0;
+  padding: 30px;
+  border-radius: 14px;
+  text-align: center;
+  width: 280px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.lock-box h2 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.lock-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  text-align: center;
+}
+
+.lock-box button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.lock-box button:hover {
+  background: #ff335a;
+}
+
+#errorMsg {
+  margin-top: 10px;
+  color: crimson;
+  font-size: 13px;
+}
+
 /* MAIN CONTENT — UNTOUCHED */
 .main-content {
   text-align: center;
   padding: 60px 20px;
   z-index: 2;
   position: relative;
-}
-
-.main-content h2 {
-  margin-bottom: 8px;
-}
-
-.main-content p {
-  margin-top: 0;
-  opacity: 0.9;
 }
 
 /* FLOATING EMOJIS BACKGROUND */
@@ -127,6 +174,17 @@ body {
 
 <body>
 
+<!-- PASSWORD LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <h2>🔐 Private</h2>
+    <p>Enter the magic code ✨</p>
+    <input type="password" id="passwordInput" placeholder="••••••">
+    <button onclick="unlock()">Unlock ❤️</button>
+    <p id="errorMsg"></p>
+  </div>
+</div>
+
 <!-- MAIN CONTENT — EXACT -->
 <div class="main-content">
   <h2>The quiet days 👀</h2>
@@ -163,6 +221,23 @@ body {
 </div>
 
 <script>
+/* PASSWORD UNLOCK */
+function unlock() {
+  const pass = document.getElementById("passwordInput").value;
+  if (pass === "221200") {
+    document.getElementById("lockScreen").style.display = "none";
+  } else {
+    document.getElementById("errorMsg").innerText = "Wrong code 🥲 try again";
+  }
+}
+
+// Press Enter to unlock
+document.getElementById("passwordInput").addEventListener("keyup", function(e){
+  if (e.key === "Enter") unlock();
+});
+
+
+/* ENVELOPE MESSAGES */
 const messages = [
   {
     img: "images/img1.jpeg",
